@@ -3,7 +3,7 @@
 Plugin Name: St Social Links
 Plugin URI: http://sanskrutitech.in/index.php/wordpress-plugins/
 Description: A simple plugin to add links to your social network. You can add the list on header, footer or widget.
-Version: 0.0.2
+Version: 0.0.3
 Author: Dhara Shah
 Author URI: http://sanskrutitech.in/
 License: GPL
@@ -344,9 +344,18 @@ function social_tag_form_option_page()
 	}
 	
 	
-	echo "<div class=\"wrap\">";
+	echo "<h2>Social Plugin</h2>";
+	echo "<div class=\"postbox-container\" style=\"width:70%;padding-right:25px;\">";
+	echo "<div class=\"metabox-holder\"><div class=\"meta-box-sortables\">";
+	echo "<div class=\"postbox \"><div class=\"handlediv\" title=\"Click to toggle\"><br/></div>";
+	echo "<div class=\"meta-box-sortables ui-sortable\">";
+	echo "<h3 class=\"hndle\"><span>Settings</span></h3>";
+	
+	echo "<div class=\"inside\">";
 	echo "<form method=\"post\" action=\"". $_SERVER["REQUEST_URI"]."\">";
+	
 	echo "<table class=\"form-table\" border=\"0\" width=\"500px\">";
+	echo "<tbody>";
 	
 	echo "<tr valign=\"top\" >";
 	echo "<td width=\"50px\"><label> Facebook Url: </label ></td>";
@@ -392,8 +401,41 @@ function social_tag_form_option_page()
 	echo "<tr valign=\"top\" >";
 	echo "<td colspan=\"2\" align=\"\"><input type=\"submit\" name=\"Submit\" value=\"Submit\" id=\"btnsubmit\" class=\"button-primary\"></input></td>";
 	echo "</tr>";
-	echo "</table>";
+	echo "</tbody></table>";
 	echo "</form>";
+	echo "</div></div></div></div></div></div>";
+	
+	echo "<div class=\"postbox-container side\" style=\"width:20%;\">";
+	echo "<div class=\"metabox-holder\">";
+	echo "<div class=\"meta-box-sortables\">";
+	echo "<div id=\"toc\" class=\"postbox\">";
+	echo "<div class=\"handlediv\" title=\"Click to toggle\"><br /></div>";
+	echo "<h3 class=\"hndle\"><span>Show your Support</span></h3>";
+	echo "<div class=\"inside\">";
+	echo "<p>";
+	echo "<strong>Want to help make this plugin even better? All donations are used to improve this plugin, so donate $20, $50 or $100 now!</strong>";
+	echo "</p>";
+	echo "<form method=\"post\" action=\"https://secure.payza.com/checkout\" >";
+	echo "	<input type=\"hidden\" name=\"ap_productid\" value=\"eLMA2gU1OLMg14iF2RzCUQ==\"/>";
+	echo "	<input type=\"hidden\" name=\"ap_quantity\" value=\"1\"/>";
+	echo "	<input type=\"image\" name=\"ap_image\" src=\"https://secure.payza.com/PayNow/1446835800E0468388C857DA1D6DE3B3d0en.gif\"/>";
+	echo "</form>";
+	echo "<p>Or you could:</p>";
+	echo "<ul>";
+	echo "	<li><a href=\"http://wordpress.org/extend/plugins/st-daily-tip/\">Rate the plugin 5 star on WordPress.org</a></li>";
+	echo "	<li><a href=\"http://wordpress.org/tags/st-daily-tip\">Help out other users in the forums</a></li>";
+	echo "<li>Blog about it &amp; link to the <a href=\"http://sanskrutitech.in/wordpress-plugins/wordpress-plugins-st-daily-tip/\">plugin page</a></li>";				
+	echo "</ul>";
+	echo "</div>";
+	echo "</div>";
+	echo "<div id=\"toc\" class=\"postbox\">";
+	echo "<div class=\"handlediv\" title=\"Click to toggle\"><br /></div>";
+	echo "<h3 class=\"hndle\"><span>Connect With Us </span></h3>";
+	echo "<div class=\"inside\">";
+	echo "<a class=\"facebook\" href=\"https://www.facebook.com/sanskrutitech\"></a>";
+	echo "<a class=\"twitter\" href=\"https://twitter.com/#!/sanskrutitech\"></a>";
+	echo "<a class=\"googleplus\" href=\"https://plus.google.com/107541175744077337034/posts\"></a>";
+	echo "</div>";
 	echo "</div>";
 	
 }
