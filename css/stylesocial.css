@@ -15,3 +15,24 @@
 		width:30px;
 		height:30px;
 	}
+a.facebook {
+	display:inline-block;
+	background-image:url('facebook_small.png');
+	width:33px;
+	height:32px;
+	margin-right:5px;
+}
+a.twitter {
+	display:inline-block;
+	background-image:url('twitter_small.png');
+	width:33px;
+	height:32px;	
+	margin-right:5px;
+}
+a.googleplus {
+	display:inline-block;
+	background-image:url('googleplus_small.png');
+	width:33px;
+	height:32px;	
+	margin-right:5px;
+}

@@ -3,7 +3,7 @@
 Plugin Name: St Social Links
 Plugin URI: http://sanskrutitech.in/index.php/wordpress-plugins/
 Description: A simple plugin to add links to your social network. You can add the list on header, footer or widget.
-Version: 0.0.3
+Version: 0.0.4
 Author: Dhara Shah
 Author URI: http://sanskrutitech.in/
 License: GPL
@@ -16,6 +16,10 @@ register_activation_hook(__FILE__,'st_social_install');
 
 /* Runs on plugin deactivation*/
 register_deactivation_hook( __FILE__, 'st_social_uninstall' );
+
+global $st_social_link_db_ver;
+
+$st_social_link_db_ver = "0.0.4";
 
 global $st_facebook;
 global $st_twitter;
@@ -174,6 +178,8 @@ function add_social_tag()
 
 function st_social_install()
 {	
+	
+	
 	global $st_facebook,$st_twitter,$st_linkedin,$st_googleplus;
 	
 	$st_facebook=get_option("st_social_facebook");
@@ -193,6 +199,7 @@ function st_social_install()
 	if($st_googleplus==false){
 	add_option("st_social_googleplus",$st_googleplus);
 	}
+	add_option("st_daily_tip_db_ver", $st_daily_tip_db_ver);
 }
 
 function st_social_uninstall() {
@@ -412,22 +419,13 @@ function social_tag_form_option_page()
 	echo "<div class=\"handlediv\" title=\"Click to toggle\"><br /></div>";
 	echo "<h3 class=\"hndle\"><span>Show your Support</span></h3>";
 	echo "<div class=\"inside\">";
-	echo "<p>";
-	echo "<strong>Want to help make this plugin even better? All donations are used to improve this plugin, so donate $20, $50 or $100 now!</strong>";
-	echo "</p>";
-	echo "<form method=\"post\" action=\"https://secure.payza.com/checkout\" >";
-	echo "	<input type=\"hidden\" name=\"ap_productid\" value=\"eLMA2gU1OLMg14iF2RzCUQ==\"/>";
-	echo "	<input type=\"hidden\" name=\"ap_quantity\" value=\"1\"/>";
-	echo "	<input type=\"image\" name=\"ap_image\" src=\"https://secure.payza.com/PayNow/1446835800E0468388C857DA1D6DE3B3d0en.gif\"/>";
-	echo "</form>";
+	echo "<p><strong>Want to help make this plugin even better? All donations are used to improve this plugin, so donate now!</strong></p>";
+	echo "<a href=\"http://sanskrutitech.in/wordpress-plugins/st-social-links/\">Donate</a>";
 	echo "<p>Or you could:</p>";
-	echo "<ul>";
-	echo "	<li><a href=\"http://wordpress.org/extend/plugins/st-daily-tip/\">Rate the plugin 5 star on WordPress.org</a></li>";
-	echo "	<li><a href=\"http://wordpress.org/tags/st-daily-tip\">Help out other users in the forums</a></li>";
-	echo "<li>Blog about it &amp; link to the <a href=\"http://sanskrutitech.in/wordpress-plugins/wordpress-plugins-st-daily-tip/\">plugin page</a></li>";				
-	echo "</ul>";
-	echo "</div>";
-	echo "</div>";
+	echo "<ul><li><a href=\"http://wordpress.org/extend/plugins/st-social-links/\">Rate the plugin 5 star on WordPress.org</a></li>";
+	echo "<li><a href=\"http://wordpress.org/support/plugin/st-social-links\">Help out other users in the forums</a></li>";
+	echo "<li>Blog about it &amp; link to the <a href=\"http://sanskrutitech.in/wordpress-plugins/st-social-links/\">plugin page</a></li>";
+	echo "</ul></div></div>";
 	echo "<div id=\"toc\" class=\"postbox\">";
 	echo "<div class=\"handlediv\" title=\"Click to toggle\"><br /></div>";
 	echo "<h3 class=\"hndle\"><span>Connect With Us </span></h3>";
