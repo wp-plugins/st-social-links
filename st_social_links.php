@@ -114,7 +114,7 @@ function display()
 	{
 		if (get_option("st_social_small_imgfb")=="on")
 		{
-			echo '<div style="float:right; width:27px;position:relative;z-index:99999;">';
+			echo '<div style="float:right; width:30px;position:relative;z-index:99999;">';
 			echo '<a target="_blank" href="'.$st_fb_value.'" ><img src="'.plugins_url('images/Facebook-small.png',__FILE__).'" \></a>';
 			echo '</div>';	
 		}
@@ -129,7 +129,7 @@ function display()
 	{
 		if (get_option("st_social_small_imgtwit")=="on")
 		{
-			echo '<div style="float:right; width:27px;position:relative;z-index:99999;">';
+			echo '<div style="float:right; width:30px;position:relative;z-index:99999;">';
 			echo '<a target="_blank" href="'.$st_twit_value.'" ><img src="'.plugins_url('images/Twitter-small.png',__FILE__).'" \></a>';
 			echo '</div>';
 		}
@@ -144,7 +144,7 @@ function display()
 	{
 		if (get_option("st_social_small_imglinkedin")=="on")
 		{
-			echo '<div style="float:right; width:27px;position:relative;z-index:99999;">';
+			echo '<div style="float:right; width:30px;position:relative;z-index:99999;">';
 			echo '<a target="_blank" href="'.$st_lnkdn_value.'" ><img src="'.plugins_url('images/linkedin-small.png',__FILE__).'" \></a>';
 			echo '</div>';
 		}
@@ -159,7 +159,7 @@ function display()
 	{
 		if (get_option("st_social_small_imggoogle")=="on")
 		{
-			echo '<div style="float:right; width:27px;position:relative;z-index:99999;">';
+			echo '<div style="float:right; width:30px;position:relative;z-index:99999;">';
 			echo '<a target="_blank" href="'.$st_googleplus_value.'" ><img src="'.plugins_url('images/googleplus-small.png',__FILE__).'" \></a>';
 			echo '</div>';
 		}

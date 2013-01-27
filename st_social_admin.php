@@ -139,7 +139,7 @@ function social_link_option_page() {
 		$showbigimglinkedin="unchecked";
 	}
 	
-	
+	echo "<div class=\"wrap\">";
 	echo "<h2>Social Plugin</h2>";
 	echo "<div class=\"postbox-container\" style=\"width:70%;padding-right:25px;\">";
 	echo "<div class=\"metabox-holder\"><div class=\"meta-box-sortables\">";
