@@ -259,7 +259,29 @@ function social_link_option_page() {
 			
 			<div class="postbox-container side" style="width:20%;">
 				<div class="metabox-holder">
-					<div class="meta-box-sortables">
+					<div class="meta-box-sortables">	
+						<div id="toc" class="postbox">
+							<div class="handlediv" title="Click to toggle"><br /></div>
+							<h3 class="hndle"><span>How to Use</span></h3>
+							<div class="inside">
+								<ol>
+									<li><strong>Add Social Links</strong></li>
+									<li><strong>Add Social Link Widget</strong></li>
+									or
+									<li><strong>Use Short Code <code>[stsociallink]</code></strong></li>
+									or
+									<li><strong>Use PHP Code </strong><br/>
+										<code>
+											&lt;?php
+											if (function_exists('add_social_link')) {
+												print add_social_link('[stsociallink]');
+											}
+											?&gt;
+										</code>
+									</li>
+								</ol>
+							</div>
+						</div>
 						<div id="toc" class="postbox">
 							<div class="handlediv" title="Click to toggle"><br /></div>
 							<h3 class="hndle"><span>Show your Support</span></h3>
