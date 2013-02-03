@@ -3,7 +3,7 @@
 Plugin Name: St Social Links
 Plugin URI: http://sanskrutitech.in/index.php/wordpress-plugins/
 Description: A simple plugin to add links to your social network. You can add the list on header, footer or widget.
-Version: 0.0.4
+Version: 0.0.5
 Author: Dhara Shah
 Author URI: http://sanskrutitech.in/
 License: GPL
@@ -18,171 +18,55 @@ register_activation_hook(__FILE__,'st_social_install');
 register_deactivation_hook( __FILE__, 'st_social_uninstall' );
 
 global $st_social_link_db_ver;
+global $table_suffix;
 
-$st_social_link_db_ver = "0.0.4";
-
-global $st_facebook;
-global $st_twitter;
-global $st_linkedin;
-global $st_googleplus;
-
-$st_facebook="";
-$st_twitter="";
-$st_linkedin="";
-$st_googleplus="";
-
-add_action( 'init', 'checkheaderfooter' );
+$st_social_link_db_ver = "0.0.5";
+$table_suffix = "sociallink";
 
 if ( is_admin() )
 {
 	require_once dirname( __FILE__ ) . '/st_social_admin.php';
 }
-function checkheaderfooter(){
-	wp_register_style('stylesocial.css',WP_SOCIAL_LINK_URL.'/css/stylesocial.css');
-	wp_enqueue_style('stylesocial.css');
-	
-	$st_showheader_value=get_option("st_social_header");
-	$st_showfooter_value=get_option("st_social_footer");
-	$st_showfix_value=get_option("st_social_fix");
-	
-	$st_showsmallimgfb_value=get_option("st_social_small_imgfb");
-	$st_showbigimgfb_value=get_option("st_social_big_imgfb");
-	
-	$st_showsmallimgtwit_value=get_option("st_social_small_imgtwit");
-	$st_showbigimgtwit_value=get_option("st_social_big_imgtwit");
-	
-	$st_showsmallimg_valuegoogle=get_option("st_social_small_imggoogle");
-	$st_showbigimg_valuegoogle=get_option("st_social_big_imggoogle");
-	
-	$st_showsmallimg_valuelinkedin=get_option("st_social_small_imglinkedin");
-	$st_showbigimg_valuelinkedin=get_option("st_social_big_imglinkedin");
-
-		if ($st_showheader_value=="on"){
-			add_action( 'wp_head', 'add_social_tag' );
-		}
-		if ($st_showfooter_value=="on"){
-			add_action( 'wp_footer', 'add_social_tag' );
-		}
-		if ($st_showfix_value=="on"){
-			add_action( 'wp_head', 'add_social_tag_fix' );
-		}	
-}
-function add_social_tag_fix()
-{	
-	$st_fb_value=get_option("st_social_facebook");
-	$st_twit_value=get_option("st_social_twitter");
-	$st_lnkdn_value=get_option("st_social_linkedin");
-	$st_googleplus_value=get_option("st_social_googleplus");
-	
-	echo '<div id="divfix">';
-	if($st_fb_value!="")
-	{
-		echo '<div id="divimg">';
-		echo '<a target="_blank" href="'.$st_fb_value.'" ><img src="'.plugins_url('images/Facebook-small.png',__FILE__).'" \>';
-		echo '</div>';
-	}
-	if($st_twit_value!="")
-	{
-		echo '<div id="divimg">';
-		echo '<a target="_blank" href="'.$st_twit_value.'" ><img src="'.plugins_url('images/Twitter-small.png',__FILE__).'" \>';
-		echo '</div>';
-	}
-	
-	if($st_lnkdn_value!="")
-	{
-		echo '<div id="divimg">';
-		echo '<a target="_blank" href="'.$st_lnkdn_value.'" ><img src="'.plugins_url('images/linkedin-small.png',__FILE__).'" \>';
-		echo '</div>';
-	}
-	if($st_googleplus_value!="")
-	{
-		echo '<div id="divimg">';
-		echo '<a target="_blank" href="'.$st_googleplus_value.'" ><img src="'.plugins_url('images/googleplus-small.png',__FILE__).'" \>';
-		echo '</div>';
-	}	
-	echo '</div>';
-}
-function display()
+function generate_links()
 {
-	$st_fb_value=get_option("st_social_facebook");
-	$st_twit_value=get_option("st_social_twitter");
-	$st_lnkdn_value=get_option("st_social_linkedin");
-	$st_googleplus_value=get_option("st_social_googleplus");
+	//fetch data from table
+	global $wpdb;
+	global $table_suffix;
+	$table_suffix = "sociallink";
+	$table_name = $wpdb->prefix . $table_suffix;
+	$table_result = $wpdb->get_results("SELECT * FROM $table_name");
 	
-	
-	if($st_fb_value!="")
+	$links = '';
+	foreach ( $table_result as $table_row ) 
 	{
-		if (get_option("st_social_small_imgfb")=="on")
-		{
-			echo '<div style="float:right; width:30px;position:relative;z-index:99999;">';
-			echo '<a target="_blank" href="'.$st_fb_value.'" ><img src="'.plugins_url('images/Facebook-small.png',__FILE__).'" \></a>';
-			echo '</div>';	
-		}
-		else if (get_option("st_social_big_imgfb")=="on")
-		{
-			echo '<div style="float:right; width:126px;position:relative;z-index:99999;">';
-			echo '<a target="_blank" href="'.$st_fb_value.'" ><img src="'.plugins_url('images/likefb.png',__FILE__).'" width="125px"\></a>';
-			echo '</div>';	
-		}		
+		$links = $links .  '<div style="float:left;padding:2px;">';
+		$links = $links .  '<a target="_blank" href="'.$table_row->social_link_url.'" ><img src="'.$table_row->img_link.'" \></a>';
+		$links = $links .  '</div>';
 	}
-	if($st_twit_value!="")
-	{
-		if (get_option("st_social_small_imgtwit")=="on")
-		{
-			echo '<div style="float:right; width:30px;position:relative;z-index:99999;">';
-			echo '<a target="_blank" href="'.$st_twit_value.'" ><img src="'.plugins_url('images/Twitter-small.png',__FILE__).'" \></a>';
-			echo '</div>';
-		}
-		if (get_option("st_social_big_imgtwit")=="on")
-		{
-			echo '<div style="float:right; width:126px;position:relative;z-index:99999;">';
-			echo '<a target="_blank" href="'.$st_twit_value.'" ><img src="'.plugins_url('images/followtwitt.png',__FILE__).'" width="125px"\></a>';
-			echo '</div>';	
-		}
-	}	
-	if($st_lnkdn_value!="")
-	{
-		if (get_option("st_social_small_imglinkedin")=="on")
-		{
-			echo '<div style="float:right; width:30px;position:relative;z-index:99999;">';
-			echo '<a target="_blank" href="'.$st_lnkdn_value.'" ><img src="'.plugins_url('images/linkedin-small.png',__FILE__).'" \></a>';
-			echo '</div>';
-		}
-		if (get_option("st_social_big_imglinkedin")=="on")
-		{
-			echo '<div style="float:right; width:126px;position:relative;z-index:99999;">';
-			echo '<a target="_blank" href="'.$st_lnkdn_value.'" ><img src="'.plugins_url('images/linkedinfollow.png',__FILE__).'" width="125px"\></a>';
-			echo '</div>';	
-		}
-	}
-	if($st_googleplus_value!="")
-	{
-		if (get_option("st_social_small_imggoogle")=="on")
-		{
-			echo '<div style="float:right; width:30px;position:relative;z-index:99999;">';
-			echo '<a target="_blank" href="'.$st_googleplus_value.'" ><img src="'.plugins_url('images/googleplus-small.png',__FILE__).'" \></a>';
-			echo '</div>';
-		}
-		if (get_option("st_social_big_imggoogle")=="on")
-		{
-			echo '<div style="float:right; width:126px;position:relative;z-index:99999;">';
-			echo '<a target="_blank" href="'.$st_googleplus_value.'" ><img src="'.plugins_url('images/googleplusfollow.png',__FILE__).'" width="125px"\></a>';
-			echo '</div>';	
-		}
-	}	
+	return $links;
 }
-
-function add_social_tag()
-{		
-	echo '<div id="page">';
-	display();
-	echo '</div>';
+add_shortcode( 'stsociallink', 'add_social_link');
+function add_social_link($attr)
+{
+	return generate_links();	
 }
-
-
 function st_social_install()
 {	
+	global $wpdb;
+	global $table_suffix;
+	global $st_daily_tip_db_ver;
+	 
+	$table_name = $wpdb->prefix . $table_suffix;
 	
+	$sql = "CREATE TABLE " . $table_name . " (
+			id mediumint(9) NOT NULL AUTO_INCREMENT,
+			social_network	varchar(50) NOT NULL,
+			social_link_url varchar(255) NOT NULL,
+			img_link		varchar(255) NOT NULL,
+			PRIMARY KEY id (id)
+		);";
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	dbDelta($sql);
 	
 	global $st_facebook,$st_twitter,$st_linkedin,$st_googleplus;
 	
@@ -191,91 +75,72 @@ function st_social_install()
 	$st_linkedin=get_option("st_social_linkedin");
 	$st_googleplus=get_option("st_social_googleplus");
 	
-	if($st_facebook==false){
-	add_option("st_social_facebook",$st_facebook);
+	if($st_facebook!=false){
+		//add_option("st_social_facebook",$st_facebook);
+		if (get_option("st_social_small_imgfb")=="on")
+		{
+			$img_url = plugins_url('images/facebook_30.png',__FILE__);
+		}
+		else if (get_option("st_social_big_imgfb")=="on")
+		{
+			$img_url = plugins_url('images/likefb.png',__FILE__);
+		}		
+		$rows_affected = $wpdb->insert( $table_name, array( 'social_network'=>'facebook','social_link_url' => $st_facebook, 'img_link' => $img_url) );
+		delete_option('st_social_facebook');
+		delete_option('st_social_small_imgfb');
+		delete_option('st_social_big_imgfb');
 	}
-	if($st_twitter==false){
-	add_option("st_social_twitter",$st_twitter);
+	if($st_twitter!=false){
+		//add_option("st_social_twitter",$st_twitter);
+		if (get_option("st_social_small_imgtwit")=="on")
+		{
+			$img_url = plugins_url('images/twitter_30.png',__FILE__);
+		}
+		if (get_option("st_social_big_imgtwit")=="on")
+		{
+			$img_url = plugins_url('images/followtwitt.png',__FILE__);
+		}
+		$rows_affected = $wpdb->insert( $table_name, array( 'social_network'=>'twitter','social_link_url' => $st_twitter, 'img_link' => $img_url) );
+		delete_option('st_social_twitter');
+		delete_option('st_social_small_imgtwit');
+		delete_option('st_social_big_imgtwit');
 	}
-	if($st_linkedin==false){
-	add_option("st_social_linkedin",$st_linkedin);
+	if($st_linkedin!=false){
+		//add_option("st_social_linkedin",$st_linkedin);
+		if (get_option("st_social_small_imglinkedin")=="on")
+		{
+			$img_url = plugins_url('images/linkedin-small.png',__FILE__);
+		}
+		if (get_option("st_social_big_imglinkedin")=="on")
+		{
+			$img_url = plugins_url('images/linkedinfollow.png',__FILE__);
+		}
+		$rows_affected = $wpdb->insert( $table_name, array( 'social_network'=>'linkedin','social_link_url' => $st_linkedin, 'img_link' => $img_url) );
+		delete_option('st_social_small_imglinkedin');
+		delete_option('st_social_big_imglinkedin');
+		delete_option('st_social_linkedin');
 	}
-	if($st_googleplus==false){
-	add_option("st_social_googleplus",$st_googleplus);
+	if($st_googleplus!=false){
+		//add_option("st_social_googleplus",$st_googleplus);
+		if (get_option("st_social_small_imggoogle")=="on")
+		{
+			$img_url = plugins_url('images/googleplus_30.png',__FILE__);
+		}
+		if (get_option("st_social_big_imggoogle")=="on")
+		{
+			$img_url = plugins_url('images/googleplusfollow.png',__FILE__);
+		}
+		$rows_affected = $wpdb->insert($table_name,array('social_network'=>'googleplus','social_link_url'=>$st_googleplus, 'img_link' => $img_url) );
 	}
-	add_option("st_daily_tip_db_ver", $st_daily_tip_db_ver);
+	add_option("st_social_link_db_ver", $st_social_link_db_ver);
+	delete_option('st_social_googleplus');
+	delete_option('st_social_small_imggoogle');
+	delete_option('st_social_big_imggoogle');
 }
 
 function st_social_uninstall() {
 
 }
-
-if(isset($_POST["Submit"]))
-{
-	update_option("st_social_facebook",$_POST['txt_facebook_url']);
-	update_option("st_social_twitter",$_POST['txt_twitter_url']);
-	update_option("st_social_linkedin",$_POST['txt_linkedin_url']);
-	update_option("st_social_googleplus",$_POST['txt_googleplus_url']);
-	update_option("st_social_header",$_POST['chkheader']);
-	update_option("st_social_footer",$_POST['chkfooter']);
-	update_option("st_social_fix",$_POST['chkfix']);
-	
-	if(isset($_POST['radioimgfb']))
-	{
-		if ($_POST['radioimgfb']  == 'imgsmallfb') 
-		{
-			update_option("st_social_small_imgfb","on");
-			update_option("st_social_big_imgfb","off");
-		}
-		else if ($_POST['radioimgfb'] == 'imgbigfb') 
-		{
-			update_option("st_social_big_imgfb","on");
-			update_option("st_social_small_imgfb","off");
-		}
-	}
-	
-	if(isset($_POST['radioimgtwit']))
-	{	
-		if ($_POST['radioimgtwit']  == 'imgsmalltwit') 
-		{
-			update_option("st_social_small_imgtwit","on");
-			update_option("st_social_big_imgtwit","off");
-		}
-		else if ($_POST['radioimgtwit'] == 'imgbigtwit') 
-		{
-			update_option("st_social_big_imgtwit","on");
-			update_option("st_social_small_imgtwit","off");
-		}
-	}
-	if(isset($_POST['radioimggoogle']))
-	{	
-		if ($_POST['radioimggoogle']  == 'imgsmallgoogle') 
-		{
-			update_option("st_social_small_imggoogle","on");
-			update_option("st_social_big_imggoogle","off");
-		}
-		else if ($_POST['radioimggoogle'] == 'imgbiggoogle') 
-		{
-			update_option("st_social_big_imggoogle","on");
-			update_option("st_social_small_imggoogle","off");
-		}
-	}
-	if(isset($_POST['radioimglinkedin']))
-	{	
-		if ($_POST['radioimglinkedin']  == 'imgsmalllinkedin') 
-		{
-			update_option("st_social_small_imglinkedin","on");
-			update_option("st_social_big_imglinkedin","off");
-		}
-		else if ($_POST['radioimglinkedin'] == 'imgbiglinkedin') 
-		{
-			update_option("st_social_big_imglinkedin","on");
-			update_option("st_social_small_imglinkedin","off");
-		}
-	}
-}
-
-
 
 /**
  * Add function to widgets_init that'll load our widget.
@@ -324,8 +189,9 @@ class st_social_Widget extends WP_Widget {
 		$st_fb_value=get_option("st_social_facebook");
 		$st_twit_value=get_option("st_social_twitter");
 	
+		$links = generate_links();
 		echo '<div>';
-		display();
+		echo $links;
 		echo '</div>';
 	}
 
