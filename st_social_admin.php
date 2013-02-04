@@ -148,16 +148,16 @@ function social_link_option_page() {
 		global $table_suffix;
 		$table_suffix = "sociallink";
 		$table_name = $wpdb->prefix . $table_suffix;
-		
+		$edit_id = "";
 		//Edit
-		if (isset($_REQUEST['Submit']) && isset($_REQUEST['edit_id'])) {
+		if (isset($_REQUEST['Submit']) && $_REQUEST['edit_id']!="") {
 			
 			$qry = "UPDATE $table_name SET social_network = '" . $social_network . "',social_link_url='" . $social_link_url . "', img_link='" . $img_link . "' WHERE id = " . $_REQUEST['edit_id'];
 			$wpdb->query($qry);
 			echo "<div id=\"message\" class=\"updated fade\"><p><strong>Social Link Updated Successfully!</strong></p></div>";
 		}
 		// Insert
-		if (isset($_REQUEST['Submit']) && !isset($_REQUEST['edit_id'])  ) {
+		if (isset($_REQUEST['Submit']) && $_REQUEST['edit_id']==""  ) {
 			$rows_affected = $wpdb->insert( $table_name, array( 'social_network' => $social_network, 'social_link_url' => $social_link_url, 'img_link' => $img_link) );
 			echo "<div id=\"message\" class=\"updated fade\"><p><strong>Social Link Inserted Successfully!</strong></p></div>";
 		}
