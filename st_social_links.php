@@ -3,7 +3,7 @@
 Plugin Name: St Social Links
 Plugin URI: http://sanskrutitech.in/index.php/wordpress-plugins/
 Description: A simple plugin to add links to your social network. You can add the list on header, footer or widget.
-Version: 0.0.5
+Version: 0.0.6
 Author: Dhara Shah
 Author URI: http://sanskrutitech.in/
 License: GPL
