@@ -3,8 +3,8 @@ Contributors: dharashah
 Donate link: http://sanskrutitech.in/index.php/wordpress-plugins/
 Tags: facebook, twitter, googleplus, linkedin, social, link
 Requires at least: 3.3.1
-Tested up to: 3.9
-Stable tag: 0.0.6
+Tested up to: 4.1.1
+Stable tag: 0.0.7
 
 A simple plugin to add links to your social network. You can add the list on header, footer or widget.
 
@@ -23,6 +23,8 @@ You can add the links in header section, footer section or in the sidebar using 
 
 
 == Changelog ==
+0.0.7
+* Added Lots of Social Links and Images
 0.0.5
 * Recreated the Plugin!
 * Removed addition of Social Link Images in header.

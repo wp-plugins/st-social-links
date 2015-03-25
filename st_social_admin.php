@@ -1,15 +1,67 @@
 <?php
+add_action( 'plugins_loaded', 'st_social_link_load_textdomain' );
+function st_social_link_load_textdomain() {
+	load_plugin_textdomain('stsociallinks', false,  dirname( plugin_basename( __FILE__ ) ) . "/language/");
+}
+
 if( ! class_exists( 'WP_List_Table' ) ) {
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
 $networks = array('facebook' => 'Facebook',
                  'twitter'=> 'Twitter',
-				 'googleplus'=>'Google Plus');
+				 'googleplus'=>'Google Plus', 
+				 'linkedin'=>'Linked In',
+				 'youtube'=>'You Tube',
+				 'instagram'=>'Instagram',
+				 'pinterest'=>'Pinterest',
+				 'tumblr'=>'Tumblr',
+				 'myspace'=>'MySpace',
+				 'netlog'=>'Netlog',
+				 'hi5'=>'Hi5',
+				 'friendster'=>'Friendster',
+ 				 'bebo'=>'Bebo',
+				 'flickr'=>'Flickr',
+				 'sinaweibo'=>'Sina Weibo',
+				 'vkontakte'=>'Vkontakte',
+				 'odnoklassniki'=>'Odnoklassniki',
+				 'renren'=>'Renren',
+				'livejournal'=>'LiveJournal',
+				'deviantart'=>'DeviantArt',
+				'stumbleupon'=>'StumbleUpon',
+				'tagged'=>'Tagged',
+				'meetup'=>'Meetup',
+				'cloob'=>'Cloob',
+				'werkenntwen'=>'Wer-kennt-wen',
+				'hyves'=>'Hyves'
+				 );
 				 
 $icon_images = array("facebook"  => array("facebook_30","facebook_32","facebook_48","facebook_48_grey","facebook_64"),
                      "twitter"   => array("twitter_30","twitter_32","twitter_48","twitter_48_grey","twitter_64"),
-					 "googleplus" => array("googleplus_30","googleplus_32","googleplus_48","googleplus_48_grey","googleplus_64"));
+					 "googleplus" => array("googleplus_30","googleplus_32","googleplus_48","googleplus_48_grey","googleplus_64"),
+					 "linkedin" => array("linkedin_30","linkedin_32","Linkedin_48","Linkedin_48_grey","linkedin_64"),
+					 "youtube" => array("youtube_30","youtube_32","youtube_48","youtube_48_grey","youtube_64"),
+					 "instagram" => array("insta_30","insta_32","insta_48","insta_48_grey","insta_64"),
+					 "pinterest" => array("pinterest_30","pinterest_32","pinterest_48","pinterest_48_grey","pinterest_64"),
+					 "tumblr" => array("Tumblr_30","Tumblr_32","Tumblr_48","Tumblr_48_grey","Tumblr_64"),
+					 "myspace" => array("myspace_30","myspace_32","myspace_48","myspace_48_grey","myspace_64"),
+					 "netlog" => array("netlog_30","netlog_32","netlog_48","netlog_48_grey","netlog_64"),
+					 "hi5" => array("hi5_30","hi5_32","hi5_48","hi5_48_grey","hi5_64"),
+					 "friendster" => array("friendster_30","friendster_32","friendster_48","friendster_48_grey","friendster_64"),
+					 "bebo" => array("bebo_30","bebo_32","bebo_48","bebo_48_grey","bebo_64"),
+					 "flickr" => array("flickr_30","flickr_32","flickr_48","flickr_48_grey","flickr_64"),
+					 "sinaweibo" => array("weibo_30","weibo_32","weibo_48","weibo_48_grey","weibo_64"),
+					 "vkontakte" => array("vkontakte_30","vkontakte_32","vkontakte_48","vkontakte_48_grey","vkontakte_64"),
+					 "odnoklassniki" => array("Odnoklassniki_30","Odnoklassniki_32","Odnoklassniki_48","Odnoklassniki_48_grey","Odnoklassniki_64"),
+					 "renren" => array("Renren_30","Renren_32","Renren_48","Renren_48_grey","Renren_64"),
+					 "livejournal" => array("LiveJournal_30","LiveJournal_32","LiveJournal_48","LiveJournal_48_grey","LiveJournal_64"),
+					 "deviantart" => array("DeviantArt_30","DeviantArt_32","DeviantArt_48","DeviantArt_48_grey","DeviantArt_64"),
+					 "stumbleupon" => array("StumbleUpon_30","StumbleUpon_32","StumbleUpon_48","StumbleUpon_48_grey","StumbleUpon_64"),
+					 "tagged" => array("Tagged_30","Tagged_32","Tagged_48","Tagged_48_grey","Tagged_64"),
+					 "meetup" => array("Meetup_30","Meetup_32","Meetup_48","Meetup_48_grey","Meetup_64"),
+					 "cloob" => array("Cloob_30","Cloob_32","Cloob_48","Cloob_48_grey","Cloob_64"),
+					 "werkenntwen" => array("Wer-kennt-wen_30","Wer-kennt-wen_32","Wer-kennt-wen_48","Wer-kennt-wen_48_grey","Wer-kennt-wen_64"),
+					 "hyves" => array("Hyves_30","Hyves_32","Hyves_48","Hyves_48_grey","Hyves_64"));
 
 add_action('admin_menu', 'social_link_admin_menu');
 function social_link_admin_menu() 
@@ -189,13 +241,13 @@ function social_link_option_page() {
 	?>
 	
 	<div class="wrap">
-		<h2>Social Plugin</h2>
+		<h2><?php _e('Social Plugin','stsociallinks')?></h2>
 			<div class="postbox-container" style="width:70%;padding-right:20px;">
 				<div class="metabox-holder">
 					<div class="meta-box-sortables">
 						<div class="postbox"><div class="handlediv" title="Click to toggle"><br/></div>
 							<div class="meta-box-sortables ui-sortable">
-								<h3 class="hndle"><span>Add / Edit</span></h3>
+								<h3 class="hndle"><span><?php _e('Add / Edit','stsociallinks')?></span></h3>
 								<div class="inside">
 									<form id="add_social_link" action="<?php echo $_SERVER['PHP_SELF']."?page=social-link"; ?>" method="post">
 										<input type="hidden" name="edit_id" value="<?=$edit_id?>" />	
@@ -212,7 +264,7 @@ function social_link_option_page() {
 												}
 											?>
 										</select>
-										<label>Link</label>
+										<label><?php _e('Link','stsociallinks')?></label>
 										<input type="text" name="social_link_url" class="regular-text" value="<?=$edit_social_link_url?>"/>
 										<?php
 											global $networks;
@@ -244,7 +296,7 @@ function social_link_option_page() {
 						</div>
 						<div class="postbox"><div class="handlediv" title="Click to toggle"><br/></div>
 							<div class="meta-box-sortables ui-sortable">
-								<h3 class="hndle"><span>Links</span></h3>
+								<h3 class="hndle"><span><?php _e('Links','stsociallinks')?></span></h3>
 									<div class="inside">
 										<form id="link_table" method="get">
 											<input type="hidden" name="page" value="<?=$_REQUEST['page'];?>" />
@@ -262,15 +314,15 @@ function social_link_option_page() {
 					<div class="meta-box-sortables">	
 						<div id="toc" class="postbox">
 							<div class="handlediv" title="Click to toggle"><br /></div>
-							<h3 class="hndle"><span>How to Use</span></h3>
+							<h3 class="hndle"><span><?php _e('How to Use','stsociallinks')?></span></h3>
 							<div class="inside">
 								<ol>
-									<li><strong>Add Social Links</strong></li>
-									<li><strong>Add Social Link Widget</strong></li>
-									or
-									<li><strong>Use Short Code <code>[stsociallink]</code></strong></li>
-									or
-									<li><strong>Use PHP Code </strong><br/>
+									<li><strong><?php _e('Add Social Links','stsociallinks')?></strong></li>
+									<li><strong><?php _e('Add Social Link Widget','stsociallinks')?></strong></li>
+									<?php _e('or','stsociallinks')?>
+									<li><strong><?php _e('Use Short Code','stsociallinks')?> <code>[stsociallink]</code></strong></li>
+									<?php _e('or','stsociallinks')?>
+									<li><strong><?php _e('Use PHP Code','stsociallinks')?></strong><br/>
 										<code>
 											&lt;?php
 											if (function_exists('add_social_link')) {
@@ -284,21 +336,21 @@ function social_link_option_page() {
 						</div>
 						<div id="toc" class="postbox">
 							<div class="handlediv" title="Click to toggle"><br /></div>
-							<h3 class="hndle"><span>Show your Support</span></h3>
+							<h3 class="hndle"><span><?php _e('Show your Support','stsociallinks')?></span></h3>
 							<div class="inside">
-								<p><strong>Want to help make this plugin even better? All donations are used to improve this plugin, so donate now!</strong></p>
-								<a href="http://sanskrutitech.in/wordpress-plugins/st-social-links/">Donate</a>
-								<p>Or you could:</p>
+								<p><strong><?php _e('Want to help make this plugin even better? All donations are used to improve this plugin, so donate now!','stsociallinks')?></strong></p>
+								<a href="http://sanskrutitech.in/wordpress-plugins/st-social-links/"><?php _e('Donate','stsociallinks')?></a>
+								<p><?php _e('Or you could:','stsociallinks')?></p>
 								<ul>
-									<li><a href="http://wordpress.org/extend/plugins/st-social-links/">Rate the plugin 5 star on WordPress.org</a></li>
-									<li><a href="http://wordpress.org/support/plugin/st-social-links">Help out other users in the forums</a></li>
-									<li>Blog about it &amp; link to the <a href="http://sanskrutitech.in/wordpress-plugins/st-social-links/">plugin page</a></li>
+									<li><a href="http://wordpress.org/extend/plugins/st-social-links/"><?php _e('Rate the plugin 5 star on WordPress.org','stsociallinks')?></a></li>
+									<li><a href="http://wordpress.org/support/plugin/st-social-links"><?php _e('Help out other users in the forums','stsociallinks')?></a></li>
+									<li><?php _e('Blog about it &amp; link to the','stsociallinks')?> <a href="http://sanskrutitech.in/wordpress-plugins/st-social-links/"><?php _e('plugin page','stsociallinks')?></a></li>
 								</ul>
 							</div>
 						</div>
 						<div id="toc" class="postbox">
 							<div class="handlediv" title="Click to toggle"><br/></div>
-							<h3 class="hndle"><span>Connect With Us </span></h3>
+							<h3 class="hndle"><span><?php _e('Connect With Us','stsociallinks')?> </span></h3>
 							<div class="inside">
 								<a class="facebook" href="https://www.facebook.com/sanskrutitech"></a>
 								<a class="twitter" href="https://twitter.com/#!/sanskrutitech"></a>
