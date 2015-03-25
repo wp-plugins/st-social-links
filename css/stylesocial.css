@@ -1,0 +1,54 @@
+	#divfix
+	{
+		position:fixed;
+		background:#c2c2c2;
+		z-index:99999;
+		width:35px;
+		margin-top:250px;
+		margin-left:-30px;
+		padding:10px;
+		border: 2px solid #c2c2c2;
+		border-radius:0 5px 5px 0;
+		box-shadow:2px 2px 5px;
+	}
+	#divimg{
+		width:30px;
+		height:30px;
+	}
+	.icon_all_img{
+		overflow:auto;
+		margin:10px;
+	}
+
+	.icon_image
+	{
+		margin:5px;
+		float:left;
+		width:80px;
+		height:80px;
+		display:inline-block;
+	}
+	.icon_image input{
+		float:left;
+	}
+a.facebook {
+	display:inline-block;
+	background-image:url('facebook_small.png');
+	width:33px;
+	height:32px;
+	margin-right:5px;
+}
+a.twitter {
+	display:inline-block;
+	background-image:url('twitter_small.png');
+	width:33px;
+	height:32px;	
+	margin-right:5px;
+}
+a.googleplus {
+	display:inline-block;
+	background-image:url('googleplus_small.png');
+	width:33px;
+	height:32px;	
+	margin-right:5px;
+}
